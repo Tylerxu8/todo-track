@@ -1,22 +1,39 @@
-# JNN — <day, e.g. W01D3>
+# journal/W0xDx.md — one file per lesson
 
-**Date:**
+Each lesson ends with its own **four numbered prompts** in its "Journal" section —
+answer *those*, in 2–4 sentences each, in a file named after the lesson
+(`journal/W01D1.md`, `journal/W01D2.md`, …). This template is just the shape they all
+follow, and a fallback if a lesson's prompts don't fit what actually happened.
 
-## What I did
+```
+# W0xDx — <lesson title>
+Date:
 
-Two or three sentences. What actually got built or learned today.
+## Answers
+1. <the lesson's prompt 1>
+   ...
+2. <prompt 2>
+   ...
+3. <prompt 3>
+   ...
+4. <the "name one line you couldn't have written from scratch" prompt>
+   Line:
+   What I can't explain yet:
 
-## What broke
+## (self-review weeks only) Week N self-review
+- Works:
+- Would redo:
+- Bug I spotted but haven't fixed:
+```
 
-Anything that didn't work the first time, and what fixed it. "Nothing broke" is a
-valid answer on a good day — say so.
+## Notes on the prompts
 
-## What I don't fully understand
-
-Be specific. Name the exact thing.
-- Good: "I don't know why `defer` matters if the script is at the end of the body anyway."
-- Not useful: "JavaScript is confusing."
-
-## One line I could not have written a week ago
-
-Optional. Paste it. It's a nice record to look back on.
+- Every lesson's prompt 4 is the same shape: **name one specific line you executed but
+  couldn't have written from a blank file, and the exact part you can't explain.**
+  "I don't know why `Math.max()` needs the `0` first argument" is useful. "I don't get
+  arrays" is not.
+- Foundations days (W01D3, W02D3) replace prompt 4 with a self-quiz — write the
+  answers from memory first, then check them against the reading and correct in
+  another colour.
+- Commit each journal entry in the next day's warm-up, so every day starts from a
+  clean tree.

@@ -42,6 +42,24 @@ a commit.
 under the code: the DOM tree, pure functions, JSON. Each ends in a short self-quiz.
 No review.
 
+## How each lesson is built
+
+Every `W0xDx.md` follows the same shape:
+
+- **Goal for today** — what you'll build, and the one sentence on how it feeds the
+  finished app.
+- **Time budget** — ~90 min hands-on, ~15 journal, ~15 slack.
+- **Warm-up** — `git status`, commit yesterday's journal, re-run yesterday's
+  deliverable, fix anything broken before starting. Broken things compound.
+- **Numbered steps**, each time-boxed, each with the *what and why* in prose before any
+  code. Type code, don't paste.
+- **Break it deliberately** — change one line, reload, watch it fail, put it back.
+  Reading errors is half the skill.
+- **Commit** (and push, most days).
+- **Journal** — four specific prompts, the last always "name one line you couldn't
+  have written from scratch." One file per lesson: `journal/W01D1.md` … `journal/W02D5.md`.
+- **What "done" looks like** — a checklist you can hold your work against.
+
 ## AI integration (graduated)
 
 | When | Rule |
