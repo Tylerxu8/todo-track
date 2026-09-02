@@ -1,0 +1,36 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 2rem auto;
+  max-width: 28rem;
+  padding: 0 1rem;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+#new-task {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#task-input { flex: 1; padding: 0.5rem; }
+
+#counter { color: #666; margin: 0 0 1rem; }
+
+#list { list-style: none; padding: 0; margin: 0; }
+
+#list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+#list li span { flex: 1; overflow-wrap: anywhere; }
+
+#list li.done span {
+  text-decoration: line-through;
+  color: #999;
+}
