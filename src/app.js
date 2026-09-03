@@ -28,4 +28,17 @@ form.addEventListener("submit", (event) => {
   input.focus();
 });
 
+list.addEventListener("click", (event) => {
+  const li = event.target.closest("li");
+  if (!li) return;
+
+  if (event.target.matches('input[type="checkbox"]')) {
+	   li.classList.toggle("done");
+  }
+
+  if (event.target.matches("button.delete")) {
+	  li.remove();
+  }
+});
+
 console.log({ form, input, list });
