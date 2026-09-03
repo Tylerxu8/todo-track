@@ -1,0 +1,47 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  max-width: 28rem;
+  margin: 2 rem auto;
+  padding: 0 1rem;
+  line-height: 1.5;
+}
+
+#new-task {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#task-input {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+#list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+#list li span {
+  flex: 1;
+}
+
+#list li.done span {
+  text-decoration: line-through;
+  color: #999;
+}
