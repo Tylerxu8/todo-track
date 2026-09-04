@@ -39,6 +39,7 @@ body {
 
 #list li span {
   flex: 1;
+  overflow-wrap: anywhere;
 }
 
 #list li.done span {

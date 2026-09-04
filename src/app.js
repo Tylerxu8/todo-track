@@ -1,6 +1,7 @@
 const form = document.querySelector("#new-task");
 const input = document.querySelector("#task-input");
 const list = document.querySelector("#list");
+const counter = document.querySelector("#counter");
 
 let tasks = [];
 let nextId = 1;
@@ -28,6 +29,13 @@ function render() {
     li.append(checkbox, span, del);
     list.appendChild(li);
   }
+  const doneCount = tasks.filter((t) => t.done).length;
+  counter.textContent = `${tasks.length} tasks · ${doneCount} done`;
+  save();
+}
+
+function save() {
+  localStorage.setItem("todo-track", JSON.stringify(tasks));
 }
 
 form.addEventListener("submit", (event) => {
@@ -62,5 +70,15 @@ list.addEventListener("click", (event) => {
   }
 });
 
-console.log({ form, input, list });
+
+const saved = localStorage.getItem("todo-track");
+if (saved) {
+  try {
+  	tasks = JSON.parse(saved);
+  	nextId = Math.max(0, ...tasks.map((t) => t.id)) + 1;
+  } catch {
+  	tasks = [];
+  }
+}
 render();
+console.log({ form, input, list });
