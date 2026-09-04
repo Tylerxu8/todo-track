@@ -23,6 +23,11 @@ body {
   padding: 0.5rem;
 }
 
+#counter { 
+  color: #666; 
+  margin: 0 0 1rem; 
+}
+
 #list {
   list-style: none;
   padding: 0;
