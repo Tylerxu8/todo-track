@@ -1,3 +1,5 @@
+console.log("VERSION 2")
+
 const form = document.querySelector('#new-task');
 const input = document.querySelector('#task-input');
 const list = document.querySelector('#list');
@@ -20,7 +22,7 @@ form.addEventListener('submit', (event) => {
   const text = input.value.trim();
   if (text === '') return;
 
-  const id = Math.max(...tasks.map(t => t.id)) + 1;
+  const id = Math.max(0, ...tasks.map((t) => t.id)) + 1;
   tasks.push({ id, text, done: false });
 
   input.value = '';
