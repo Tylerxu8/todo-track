@@ -1,3 +1,5 @@
+import { addTask, toggle, remove } from "./todo.js";
+
 const form = document.querySelector("#new-task");
 const input = document.querySelector("#task-input");
 const list = document.querySelector("#list");
@@ -44,7 +46,7 @@ form.addEventListener("submit", (event) => {
   const text = input.value.trim();
   if (text === "") return;
 
-  tasks.push({ id: nextId, text, done: false });
+  tasks = addTask(tasks, text, nextId);
   nextId += 1;
   render();
 
@@ -59,13 +61,12 @@ list.addEventListener("click", (event) => {
   const id = Number(li.dataset.id);
 
   if (event.target.matches('input[type="checkbox"]')) {
-    const task = tasks.find((t) => t.id === id);
-    task.done = !task.done;
+    tasks = toggle(tasks, id);
     render();
   }
 
   if (event.target.matches("button.delete")) {
-    tasks = tasks.filter((t) => t.id !== id);
+    tasks = remove(tasks, id);
     render();
   }
 });
