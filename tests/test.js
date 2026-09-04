@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { addTask, toggle, remove } from "../src/todo.js";
+import { addTask, toggle, remove } from "../docs/todo.js";
 
 let passed = 0;
 function test(name, fn) {
