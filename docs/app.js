@@ -36,7 +36,15 @@ function render() {
     del.className = "delete";
     del.textContent = "Delete";
 
-    li.append(checkWrap, span, del);
+    const actions = document.createElement("div");
+    actions.className = "row-actions";
+    actions.appendChild(del);
+
+    const content = document.createElement("div");
+    content.className = "row-content";
+    content.append(checkWrap, span);
+
+    li.append(actions, content);
     list.appendChild(li);
   }
   const doneCount = tasks.filter((t) => t.done).length;
@@ -79,6 +87,34 @@ list.addEventListener("click", (event) => {
   }
 });
 
+const OPEN_X = -88;
+let drag = null;
+
+list.addEventListener("pointerdown", (event) => {
+  const content = event.target.closest(".row-content");
+  if (!content) return;
+
+  drag = { content, startX: event.clientX, currentX: 0 };
+  content.style.transition = "none";
+  content.setPointerCapture(event.pointerId);
+});
+
+list.addEventListener("pointermove", (event) => {
+  if (!drag) return;
+
+  const delta = event.clientX - drag.startX;
+  drag.currentX = Math.min(0, Math.max(OPEN_X, delta));
+  drag.content.style.transform = `translateX(${drag.currentX}px)`;
+});
+
+list.addEventListener("pointerup", (event) => {
+  if (!drag) return;
+
+  drag.content.style.transition = "";
+  const open = drag.currentX < OPEN_X / 2;
+  drag.content.style.transform = `translateX(${open ? OPEN_X : 0}px)`;
+  drag = null;
+});
 
 const saved = localStorage.getItem("todo-track");
 if (saved) {

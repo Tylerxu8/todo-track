@@ -43,10 +43,7 @@ body {
 }
 
 #list li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0;
+  padding: 0;
   border-bottom: none;
   position: relative;
 }
@@ -117,4 +114,34 @@ body {
 .check input:focus-visible + .check-circle {
   outline: 2px solid #007aff;
   outline-offset: 2px;
+}
+
+.row-actions {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.row-actions .delete {
+  background: #ff3b30;
+  color: white;
+  border: none;
+  font: inherit;
+  padding: 0 1.25rem;
+}
+
+.row-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: white;
+  transform: translateX(0);
+  transition: transform 0.2s ease;
+  touch-action: pan-y;
+}
+
+li:focus-within .row-content {
+  transform: translateX(-88px);
 }
