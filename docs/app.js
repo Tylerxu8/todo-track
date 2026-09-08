@@ -16,9 +16,17 @@ function render() {
     li.dataset.id = task.id;
     if (task.done) li.classList.add("done");
 
+    const checkWrap = document.createElement("label");
+    checkWrap.className = "check";
+
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = task.done;
+
+    const circle = document.createElement("span");
+    circle.className = "check-circle";
+
+    checkWrap.append(checkbox, circle);
 
     const span = document.createElement("span");
     span.textContent = task.text;
@@ -28,7 +36,7 @@ function render() {
     del.className = "delete";
     del.textContent = "Delete";
 
-    li.append(checkbox, span, del);
+    li.append(checkWrap, span, del);
     list.appendChild(li);
   }
   const doneCount = tasks.filter((t) => t.done).length;
@@ -82,4 +90,3 @@ if (saved) {
   }
 }
 render();
-console.log({ form, input, list });
