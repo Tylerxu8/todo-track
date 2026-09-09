@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { addTask, toggle, remove } from "../docs/todo.js";
+import { addTask, toggle, remove, setDueDate, toggleFlag } from "../docs/todo.js";
 
 let passed = 0;
 function test(name, fn) {
@@ -63,6 +63,22 @@ test("remove with an id that doesn't exist leaves tasks unchanged", () => {
 	const start = [{ id: 1, text: "a", done: false }];
 	const out = remove(start, 999);
 	assert.deepEqual(out, start);
+});
+
+test("setDueDate sets the date on the matching task only", () => {
+	const start = [
+		{ id: 1, text: "a", done: false, dueDate: null, flagged: false },
+		{ id: 2, text: "b", done: false, dueDate: null, flagged: false },
+	];
+	const out = setDueDate(start, 1, "2026-09-10");
+	assert.equal(out[0].dueDate, "2026-09-10");
+	assert.equal(out[1].dueDate, null);
+});
+
+test("toggleFlag flips flagged for the matching task only", () => {
+	const start = [{ id: 1, text: "a", done: false, dueDate: null, flagged: false }];
+	const out = toggleFlag(start, 1);
+	assert.equal(out[0].flagged, true);
 });
 
 console.log(`\n${passed} passed`);

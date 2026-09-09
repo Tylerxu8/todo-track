@@ -142,6 +142,29 @@ body {
   touch-action: pan-y;
 }
 
-li:focus-within .row-content {
+.row-actions:focus-within + .row-content {
   transform: translateX(-88px);
+}
+
+.due-date {
+  border: none;
+  background: transparent;
+  font-size: 0.85rem;
+  color: #8e8e93;
+}
+
+.due-date.overdue {
+  color: #ff3b30;
+}
+
+.flag {
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  color: #d1d1d6;
+  cursor: pointer;
+}
+
+.flag.flagged {
+  color: #ff9500;
 }

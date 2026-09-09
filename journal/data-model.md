@@ -1,24 +1,25 @@
 # Data model
 
 ## A task
-A task is an object with three fields:
+A task is an object with five fields:
 
 
 - id	a number, unique per task. Never shown to the user. It exists so the app can point at one specific task even when two tasks have identical text.
 
 - text	a string. Exactly what the user typed (after trimming spaces).
 - done	a boolean. False when created; flips when the user marks it done.
+- dueDate  a string like "2026-09-10", or null if unset
+- flagged  a boolean, false by default
 
-
-Written out:	{ id: 1, text: "buy milk", done: false }
+Written out:	{ id: 1, text: "buy milk", done: false, dueDate, flagged }
 
 
 ## The list
 The whole to-do list is an array of task objects, in the order they were added:
 
 	[ 
-	  { id: 1, text: "buy milk",		done: false},
-	  { id: 2, text: "call the bank",	done: true }
+	  { id: 1, text: "buy milk",		done: false, dueDate, flagged },
+	  { id: 2, text: "call the bank",	done: true, dueDate, flagged }
 	]
 
 ## The three operations

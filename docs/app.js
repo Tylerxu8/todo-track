@@ -1,4 +1,4 @@
-import { addTask, toggle, remove } from "./todo.js";
+import { addTask, toggle, remove, setDueDate, toggleFlag } from "./todo.js";
 
 const form = document.querySelector("#new-task");
 const input = document.querySelector("#task-input");
@@ -7,6 +7,10 @@ const counter = document.querySelector("#counter");
 
 let tasks = [];
 let nextId = 1;
+
+function todayString() {
+  return new Date().toISOString().slice(0, 10);
+}
 
 function render() {
   list.innerHTML = "";
@@ -31,6 +35,20 @@ function render() {
     const span = document.createElement("span");
     span.textContent = task.text;
 
+    const dateInput = document.createElement("input");
+    dateInput.type = "date";
+    dateInput.className = "due-date";
+    dateInput.value = task.dueDate || "";
+
+    const isOverdue = task.dueDate && !task.done && task.dueDate < todayString();
+    if (isOverdue) dateInput.classList.add("overdue");
+
+    const flagBtn = document.createElement("button");
+    flagBtn.type = "button";
+    flagBtn.className = "flag";
+    if (task.flagged) flagBtn.classList.add("flagged");
+    flagBtn.textContent = "⚑";
+
     const del = document.createElement("button");
     del.type = "button";
     del.className = "delete";
@@ -42,7 +60,7 @@ function render() {
 
     const content = document.createElement("div");
     content.className = "row-content";
-    content.append(checkWrap, span);
+    content.append(checkWrap, span, dateInput, flagBtn);
 
     li.append(actions, content);
     list.appendChild(li);
@@ -70,10 +88,20 @@ form.addEventListener("submit", (event) => {
   input.focus();
 });
 
+list.addEventListener("change", (event) => {
+  const li = event.target.closest("li");
+  if (!li) return;
+  const id = Number(li.dataset.id);
+
+  if (event.target.matches(".due-date")) {
+    tasks = setDueDate(tasks, id, event.target.value || null);
+    render();
+  }
+});
+
 list.addEventListener("click", (event) => {
   const li = event.target.closest("li");
   if (!li) return;
-
   const id = Number(li.dataset.id);
 
   if (event.target.matches('input[type="checkbox"]')) {
@@ -85,6 +113,12 @@ list.addEventListener("click", (event) => {
     tasks = remove(tasks, id);
     render();
   }
+
+  if (event.target.matches(".flag")) {
+    const id = Number(event.target.closest("li").dataset.id);
+    tasks = toggleFlag(tasks, id);
+    render()
+  }
 });
 
 const OPEN_X = -88;
@@ -93,6 +127,7 @@ let drag = null;
 list.addEventListener("pointerdown", (event) => {
   const content = event.target.closest(".row-content");
   if (!content) return;
+  if (event.target.closest("input, button")) return;
 
   drag = { content, startX: event.clientX, currentX: 0 };
   content.style.transition = "none";
