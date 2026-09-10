@@ -72,6 +72,44 @@ body {
   color: #999;
 }
 
+#list-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#add-list {
+  border: none;
+  background: transparent;
+  font-size: 1.1rem;
+}
+
+.tab {
+  border: none;
+  background: #e5e5ea;
+  color: #1c1c1e;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  font: inherit;
+}
+
+.tab.active {
+  background: #007aff;
+  color: white;
+}
+
+.tab-x {
+  margin-left: 0.4rem;
+  padding: 0 0.15rem;
+  opacity: 0.55;
+  font-weight: 700;
+}
+
+.tab-x:hover {
+  opacity: 1;
+}
+
 .check {
   position: relative;
   display: inline-flex;
@@ -94,6 +132,9 @@ body {
   border: 2px solid #c7c7cc;
   border-radius: 50%;
   transition: background-color 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .check input:checked + .check-circle {
@@ -108,8 +149,7 @@ body {
   height: 0.65rem;
   border: solid white;
   border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-  margin: 0.15rem auto 0 0.55rem;
+  transform: translateY(-1px) rotate(45deg);
 }
 
 .check input:focus-visible + .check-circle {
