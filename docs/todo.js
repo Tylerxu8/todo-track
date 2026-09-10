@@ -33,3 +33,19 @@ export function findList(lists, id) {
 export function replaceListTasks(lists, id, tasks) {
   return lists.map((l) => (l.id === id ? { ...l, tasks } : l));
 }
+
+export function reorder(tasks, draggedId, targetId) {
+  const dragged = tasks.find((t) => t.id === draggedId);
+  const withoutDragged = tasks.filter((t) => t.id !== draggedId);
+  const targetIndex = withoutDragged.findIndex((t) => t.id === targetId);
+
+  const fromIndex = tasks.findIndex((t) => t.id === draggedId);
+  const toIndex = tasks.findIndex((t) => t.id === targetId);
+  const insertAt = fromIndex < toIndex ? targetIndex + 1 : targetIndex;
+
+  return [
+    ...withoutDragged.slice(0, insertAt),
+    dragged,
+    ...withoutDragged.slice(insertAt),
+  ];
+}

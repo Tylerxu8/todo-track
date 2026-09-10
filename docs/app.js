@@ -1,4 +1,4 @@
-import { addTask, toggle, remove, setDueDate, toggleFlag, findList, replaceListTasks, addList, removeList } from "./todo.js";
+import { addTask, toggle, remove, setDueDate, toggleFlag, findList, replaceListTasks, addList, removeList, reorder } from "./todo.js";
 
 const form = document.querySelector("#new-task");
 const input = document.querySelector("#task-input");
@@ -77,6 +77,7 @@ function render() {
   for (const task of currentTasks()) {
     const li = document.createElement("li");
     li.dataset.id = task.id;
+    li.draggable = true;
     if (task.done) li.classList.add("done");
 
     const checkWrap = document.createElement("label");
@@ -221,6 +222,7 @@ const OPEN_X = -88;
 let drag = null;
 
 list.addEventListener("pointerdown", (event) => {
+  if (event.pointerType !== "touch") return;
   const content = event.target.closest(".row-content");
   if (!content) return;
   if (event.target.closest("input, button")) return;
@@ -245,6 +247,38 @@ list.addEventListener("pointerup", (event) => {
   const open = drag.currentX < OPEN_X / 2;
   drag.content.style.transform = `translateX(${open ? OPEN_X : 0}px)`;
   drag = null;
+});
+
+list.addEventListener("pointercancel", () => {
+  if (!drag) return;
+  drag.content.style.transition = "";
+  drag = null;
+});
+
+list.addEventListener("dragstart", (event) => {
+  const li = event.target.closest("li");
+  if (!li) return;
+  event.dataTransfer.setData("text/plain", li.dataset.id);
+  event.dataTransfer.effectAllowed = "move";
+});
+
+list.addEventListener("dragover", (event) => {
+  event.preventDefault();
+});
+
+list.addEventListener("drop", (event) => {
+  event.preventDefault();
+
+  const targetLi = event.target.closest("li");
+  if (!targetLi) return;
+
+  const draggedId = Number(event.dataTransfer.getData("text/plain"));
+  const targetId = Number(targetLi.dataset.id);
+  if (draggedId === targetId) return;
+
+  updateCurrentTasks(reorder(currentTasks(), draggedId, targetId));
+  render();
+  renderTabs();
 });
 
 render();

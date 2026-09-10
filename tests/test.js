@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { addTask, toggle, remove, setDueDate, toggleFlag, addList, removeList, findList, replaceListTasks } from "../docs/todo.js";
+import { addTask, toggle, remove, setDueDate, toggleFlag, addList, removeList, findList, replaceListTasks, reorder } from "../docs/todo.js";
 
 let passed = 0;
 function test(name, fn) {
@@ -170,6 +170,26 @@ test("findList + addTask + replaceListTasks adds to the right list only", () => 
 	assert.equal(lists[0].tasks.length, 1);
 	assert.equal(lists[0].tasks[0].text, "buy milk");
 	assert.equal(lists[1].tasks.length, 0);
+});
+
+test("reorder moves a task to just before the target", () => {
+	const start = [
+		{ id: 1, text: "a" },
+		{ id: 2, text: "b" },
+		{ id: 3, text: "c" },
+	];
+	const out = reorder(start, 3, 1);
+	assert.deepEqual(out.map((t) => t.id), [3, 1, 2]);
+});
+
+test("reorder moves a task down to just after the target", () => {
+	const start = [
+		{ id: 1, text: "a" },
+		{ id: 2, text: "b" },
+		{ id: 3, text: "c" },
+	];
+	const out = reorder(start, 1, 2);
+	assert.deepEqual(out.map((t) => t.id), [2, 1, 3]);
 });
 
 console.log(`\n${passed} passed`);

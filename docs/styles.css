@@ -208,6 +208,34 @@ body {
   }
 }
 
+@media (hover: hover) and (pointer: fine) {
+  #list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .row-content {
+    flex: 1;
+    transform: none;
+  }
+
+  .row-actions {
+    position: static;
+    order: 1;
+  }
+
+  .row-actions:focus-within + .row-content {
+    transform: none;
+  }
+
+  .row-actions .delete {
+    background: transparent;
+    color: #8e8e93;
+    padding: 0 0.5rem;
+  }
+}
+
 .flag {
   border: none;
   background: transparent;
